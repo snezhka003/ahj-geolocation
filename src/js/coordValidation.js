@@ -1,12 +1,13 @@
 export default function coordValidation(input) {
   let data = input;
+  const regularForCoords = /^[-—–−-]?[0-9]{1,2}\.[0-9]+, [-—–−-]?[0-9]{1,2}\.[0-9]+/;
 
   if (data.includes('[') && data.includes(']')) {
     data = data.slice(data.indexOf('[') + 1, data.indexOf(']'));
   }
 
   if (data.includes(' ')) {
-    if (/^[-—–−-]?[0-9]{1,2}\.[0-9]+, [-—–−-]?[0-9]{1,2}\.[0-9]+/.test(data)) {
+    if (regularForCoords.test(data)) {
       return data;
     }
     return false;
@@ -16,7 +17,7 @@ export default function coordValidation(input) {
   const longitude = data.slice(data.indexOf(',') + 1);
   data = `${latitude}, ${longitude}`;
 
-  if (/^[-—–−-]?[0-9]{1,2}\.[0-9]+, [-—–−-]?[0-9]{1,2}\.[0-9]+/.test(data)) {
+  if (regularForCoords.test(data)) {
     return data;
   }
   return false;
